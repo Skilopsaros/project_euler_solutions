@@ -1,5 +1,6 @@
 import math as maths
 import numpy as np
+import timeit
 
 def main(up_to):
 	primes_list = []
@@ -18,4 +19,4 @@ def is_next_prime(n, list):
 
 
 if __name__ == "__main__":
-	print(main(2000000))
+	print(timeit.timeit("print(main(2000000))","from __main__ import main", number=1))
