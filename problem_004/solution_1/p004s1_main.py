@@ -10,8 +10,8 @@ def main():
 	return(max(palindromes))
 
 
-def is_palindrome(input):
-	if str(input) == str(input)[::-1]:
+def is_palindrome(input_number):
+	if str(input_number) == str(input_number)[::-1]:
 		return(True)
 	return(False)
 

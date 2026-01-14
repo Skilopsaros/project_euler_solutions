@@ -1,27 +1,8 @@
 import math as maths
+import common.functions as cf
 
-def main(input):
-	check_up_to = input/2
-	primes = find_primes(check_up_to)
-	print(primes[::-1])
-	for prime in primes[::-1]:
-		if 0 == (input % prime):
-			return(prime)
-
-
-def find_primes(up_to):
-	primes_list = []
-	for i in range(maths.ceil(up_to)):
-		if is_prime(i):
-			primes_list.append(i)
-	return(primes_list)
-
-def is_prime(n):
-	for i in range(2,maths.floor(pow(n,0.5))+1):
-		if n%i==0:
-			return(False)
-	return(True)
-
+def main(input_number, start = 2):
+	return(max(cf.find_prime_factors(input_number)))
 
 if __name__ == "__main__":
-	print(main(1000000))
+	print(main(600851475143))
