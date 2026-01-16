@@ -101,7 +101,6 @@ def find_divisors(input_number, include_self = False):
 def sum_of_proper_divisors(input_number):
 	return(sum(find_divisors(input_number)))
 
-
 @remember_output
 def fibonacci(n):
 	if n in [1,2]:
