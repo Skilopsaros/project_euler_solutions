@@ -14,7 +14,9 @@ def remember_output(f):
 def is_prime(n):
 	if n in [0,1]:
 		return False
-	for i in range(2,maths.floor(pow(n,0.5))+1):
+	if n%2 == 0:
+		return(n == 2)
+	for i in range(3,maths.floor(pow(n,0.5))+1,2):
 		if n%i==0:
 			return(False)
 	return(True)
@@ -56,6 +58,10 @@ def is_next_prime(n, primes_list):
 	return(True)
 
 def find_prime_factors(input_number, start = 2, factors_list = None, as_dict = False):
+	if input_number == 1:
+		if as_dict:
+			return({})
+		return([])
 	if (not factors_list) and is_prime(input_number):
 		if as_dict:
 			return({input_number:1})
@@ -108,10 +114,57 @@ def fibonacci(n):
 	return(fibonacci(n-1)+fibonacci(n-2))
 
 
+def simplify_fraction(n, d):
+	n_factors = find_prime_factors(n, as_dict=True)
+	d_factors = find_prime_factors(d, as_dict=True)
+	for k, v in n_factors.items():
+		if k in d_factors:
+			min_multiplicity = min(v, d_factors[k])
+			n_factors[k] -= min_multiplicity
+			d_factors[k] -= min_multiplicity
+	new_n = maths.prod([pow(k,v) for k,v in n_factors.items()])
+	new_d = maths.prod([pow(k,v) for k,v in d_factors.items()])
+	return(new_n, new_d)
+
+def find_all_permutations(digits):
+	if len(digits) == 1:
+		return([digits])
+	permutations = []
+	for d in digits:
+		new_digits = list(digits)
+		new_digits.remove(d)
+		new_permutations = find_all_permutations(new_digits)
+		for permutation in new_permutations:
+			permutation.append(d)
+			permutations.append(permutation)
+	return(permutations)
+
+def permutation_to_number(permutation):
+	pandigital = 0
+	for i,v in enumerate(permutation[::-1]):
+		pandigital += v*pow(10,i)
+	return(pandigital)
+
+def is_perfect_square(n):
+	guess = int(pow(n,0.5))
+	if guess*guess == n:
+		return(True)
+	if guess*guess < n:
+		while guess*guess < n:
+			guess += 1
+		return(guess*guess==n)
+	if guess*guess > n:
+		while guess*guess > n:
+			guess -= 1
+		return(guess*guess==n)
+
+def is_palindrome(a, b):
+	return("".join(sorted(str(a)))=="".join(sorted(str(b))))
+
 if __name__ == "__main__":
 	print("new")
 	start = time.time()
-	#code 
+	# time here
 	stop = time.time()
 	print(stop-start)
 	
